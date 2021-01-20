@@ -2,7 +2,7 @@
 
 # Team Members
 * Sean Alling (Teaching Assistant)
-* Anthony Pham
+* Anthony Pham (Team Leader)
 * Abdallah Hashem
 * Jan Truong
 * Anelise Cho
