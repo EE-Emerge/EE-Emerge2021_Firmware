@@ -11,3 +11,4 @@
 * Sejal Karanjkar
 * Gisselle Ibarra
 * Joseph Arbuckle
+* Victoria Pierce
