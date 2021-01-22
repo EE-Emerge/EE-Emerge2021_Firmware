@@ -2,12 +2,12 @@
 
 # Team Members
 * Sean Alling (Teaching Assistant)
-* Anthony Pham (Team Leader)
+* Anthony Pham (Co Team Leader)
+* Varsha Senthil (Co Team Leader)
 * Abdallah Hashem
 * Jan Truong
 * Anelise Cho
 * Darren Animo
 * Sejal Karanjkar
 * Gisselle Ibarra
-* Varsha Senthil
 * Joseph Arbuckle
