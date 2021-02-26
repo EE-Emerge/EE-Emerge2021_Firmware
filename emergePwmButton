@@ -1,0 +1,68 @@
+// most launchpads have a red LED
+#define PWM P1_0
+#define SLOW_BUTTON P1_7
+#define SPEED_BUTTON P1_3
+
+/*********************************************
+        Fan stuff
+*********************************************/
+/* FAN INPUT */
+
+/************************************ CONTROL FAN LOGIC ****************************/
+/* Check the state of speed up/slow down buttons */
+bool lastStateSpeedBtn = 0;
+bool lastStateSlowBtn = 0;
+
+int pwmVal = 0;
+
+/*The next 2 functions change the PWM speed by 5*/
+void buttonSpeedUpPressed() 
+{
+	bool currentBtnState = digitalRead(SPEED_BUTTON);
+
+	if( !lastStateSpeedBtn && currentBtnState)
+	{
+		pwmVal = pwmVal + 5;
+		if ( pwmVal>= 1023) {    // if PWM is at max, no change
+			pwmVal = 1023;
+		} else {    // if PWM is not at max, write new value
+			analogWrite(PWM, pwmVal);
+}
+	}
+	lastStateSpeedBtn = currentBtnState;
+	return;
+}
+
+void buttonSlowDownPressed(int buttonPin) 
+{
+    bool currentBtnState = digitalRead(SLOW_BUTTON);
+
+    if( !lastStateSlowBtn && currentBtnState)
+    {
+pwmVal = pwmVal - 50;
+        if ( pwmVal<= 0) {    // if PWM is at min, no change
+            pwmVal = 0;
+        } else {    // if PWM is not at min, write new value
+            analogWrite(PWM, pwmVal);
+}
+    }
+    lastStateSlowBtn = currentBtnState;
+    return;
+}
+
+/************************************************************/
+
+void setup() 
+{
+    // initialize the digital pin as an output.
+  pinMode(SPEED_BUTTON, INPUT);
+  pinMode(SLOW_BUTTON, INPUT);
+  pinMode(PWM, OUTPUT);
+  analogWrite (PWM, 0);
+}
+
+// the loop routine runs over and over again forever:
+void loop()
+ {
+     buttonSpeedUpPressed(); 
+ }
