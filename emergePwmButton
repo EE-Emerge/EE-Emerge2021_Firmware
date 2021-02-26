@@ -1,5 +1,5 @@
 // most launchpads have a red LED
-#define PWM P1_0
+#define PWM P1_6
 #define SLOW_BUTTON P1_7
 #define SPEED_BUTTON P1_3
 
@@ -15,14 +15,14 @@ bool lastStateSlowBtn = 0;
 
 int pwmVal = 0;
 
-/*The next 2 functions change the PWM speed by 5*/
+/*The next 2 functions change the PWM speed by 25*/
 void buttonSpeedUpPressed() 
 {
 	bool currentBtnState = digitalRead(SPEED_BUTTON);
 
 	if( !lastStateSpeedBtn && currentBtnState)
 	{
-		pwmVal = pwmVal + 5;
+		pwmVal = pwmVal + 25;
 		if ( pwmVal>= 1023) {    // if PWM is at max, no change
 			pwmVal = 1023;
 		} else {    // if PWM is not at max, write new value
@@ -39,7 +39,7 @@ void buttonSlowDownPressed(int buttonPin)
 
     if( !lastStateSlowBtn && currentBtnState)
     {
-pwmVal = pwmVal - 50;
+	pwmVal = pwmVal - 25;
         if ( pwmVal<= 0) {    // if PWM is at min, no change
             pwmVal = 0;
         } else {    // if PWM is not at min, write new value
