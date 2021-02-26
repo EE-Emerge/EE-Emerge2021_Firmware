@@ -1,0 +1,95 @@
+/*
+  Blink
+  The basic Energia example.
+  Turns on an LED on for one second, then off for one second, repeatedly.
+  Change the LED define to blink other LEDs.
+  
+  Hardware Required:
+  * LaunchPad with an LED
+  
+  This example code is in the public domain.
+*/
+
+// most launchpads have a red LED
+#define LED1 P1_0
+#define LED2 P1_6
+#define LED3 P2_1
+#define LED4 P2_3
+#define LED5 P2_5
+#define LED1_BUTTON P1_3
+#define LED2_BUTTON P1_7
+//#define LED2_BUTTON P1_3
+
+//see pins_energia.h for more LED definitions
+//#define LED GREEN_LED
+  
+bool lastStateLedOneBtn = 0;
+bool lastStateLedTwoBtn = 0;
+
+/* Check if LEDs are on or off*/
+bool ledOne = 0;    // 0 = LED off, 1 = LED on
+bool ledTwo = 0;
+
+/*The next 2 functions turn the specified LED on or off when the button is pressed, depending on the state of the LED*/
+// the setup routine runs once when you press reset:
+// the setup routine runs once when you press reset:
+void buttonLedOnePressed() {
+	bool currentBtnState = digitalRead(LED1_BUTTON);
+	bool btnPressed = 0;
+
+	if( !lastStateLedOneBtn && currentBtnState)
+	{
+    		btnPressed = 1;
+		if (ledOne == 0) {    // if off, turn it on
+			digitalWrite(LED1, HIGH);
+			ledOne = 1;
+} else {    // if on, turn it off
+	digitalWrite(LED1, LOW);
+			ledOne = 0;
+}
+	}
+	lastStateLedOneBtn = currentBtnState;
+	return;
+}
+
+void buttonLedTwoPressed() {
+	bool currentBtnState = digitalRead(LED2_BUTTON);
+	bool btnPressed = 0;
+
+	if( !lastStateLedTwoBtn && currentBtnState)
+	{
+    		btnPressed = 1;
+if (ledTwo == 0) {    // if off, turn it on
+			digitalWrite(LED2, HIGH);
+			ledTwo = 1;
+} else {    // if on, turn it off
+	digitalWrite(LED2, LOW);
+			ledTwo = 0;
+	}
+	lastStateLedTwoBtn = currentBtnState;
+	return;
+}
+}
+
+//
+
+void setup() 
+{
+    // initialize the digital pin as an output.
+    pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(LED4, OUTPUT);
+  pinMode(LED5, OUTPUT);
+  pinMode(LED1_BUTTON, INPUT);
+  pinMode(LED2_BUTTON, INPUT);
+}
+
+// the loop routine runs over and over again forever:
+void loop()
+ {
+     buttonLedOnePressed();
+     buttonLedTwoPressed();
+ }
+
+
