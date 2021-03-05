@@ -1,4 +1,3 @@
-//hi
 #include <Wire.h>
 
 /* LED DEF’s */
@@ -61,7 +60,7 @@ void buttonSpeedUpPressed()
 			pwmVal = 1023;
 		} else {    // if PWM is not at max, write new value
 			analogWrite(PWM, pwmVal);
-}
+		}
 	}
 	lastStateSpeedBtn = currentBtnState;
 	return;
@@ -70,60 +69,60 @@ void buttonSpeedUpPressed()
 /*The next 2 functions turn the specified LED on or off when the button is pressed, depending on the state of the LED*/
 void buttonLedOnePressed() 
 {
-    bool currentBtnState = digitalRead(LED1_BUTTON);
-    bool btnPressed = 0;
+	bool currentBtnState = digitalRead(LED1_BUTTON);
+	bool btnPressed = 0;
 
-    if( !lastStateLedOneBtn && currentBtnState)
-    {
-            btnPressed = 1;
-        if (ledOne == 0) {    // if off, turn it on
-            digitalWrite(LED1, HIGH);
-            ledOne = 1;
-} else {    // if on, turn it off
-    digitalWrite(LED1, LOW);
-            ledOne = 0;
-}
-    }
-    lastStateLedOneBtn = currentBtnState;
-    return;
+	if( !lastStateLedOneBtn && currentBtnState)
+	{
+		btnPressed = 1;
+		if (ledOne == 0) {    // if off, turn it on
+			digitalWrite(LED1, HIGH);
+			ledOne = 1;
+		} else {    // if on, turn it off
+			digitalWrite(LED1, LOW);
+			ledOne = 0;
+		}
+	}
+	lastStateLedOneBtn = currentBtnState;
+	return;
 }
 
 void buttonLedTwoPressed() {
-    bool currentBtnState = digitalRead(LED2_BUTTON);
-    bool btnPressed = 0;
+	bool currentBtnState = digitalRead(LED2_BUTTON);
+	bool btnPressed = 0;
 
-    if( !lastStateLedTwoBtn && currentBtnState)
-    {
-            btnPressed = 1;
-if (ledTwo == 0) {    // if off, turn it on
-            digitalWrite(LED2, HIGH);
-            ledTwo = 1;
-} else {    // if on, turn it off
-    digitalWrite(LED2, LOW);
-            ledTwo = 0;
-}
-    }
-    lastStateLedTwoBtn = currentBtnState;
-    return;
+	if( !lastStateLedTwoBtn && currentBtnState)
+	{
+		btnPressed = 1;
+		if (ledTwo == 0) {    // if off, turn it on
+			digitalWrite(LED2, HIGH);
+			ledTwo = 1;
+		} else {    // if on, turn it off
+			digitalWrite(LED2, LOW);
+			ledTwo = 0;
+		}
+	}
+	lastStateLedTwoBtn = currentBtnState;
+	return;
 }
 
 /**************************** HELPER FUNCTIONS BATTERY *************************/
 
 void buttonSlowDownPressed(int buttonPin) 
 {
-    bool currentBtnState = digitalRead(SLOW_BUTTON);
+	bool currentBtnState = digitalRead(SLOW_BUTTON);
 
-    if( !lastStateSlowBtn && currentBtnState)
-    {
-	pwmVal = pwmVal - 5;
-        if ( pwmVal<= 0) {    // if PWM is at min, no change
-            pwmVal = 0;
-        } else {    // if PWM is not at min, write new value
-            analogWrite(PWM, pwmVal);
-}
-    }
-    lastStateSlowBtn = currentBtnState;
-    return;
+	if( !lastStateSlowBtn && currentBtnState)
+	{
+		pwmVal = pwmVal - 5;
+		if ( pwmVal<= 0) {    // if PWM is at min, no change
+			pwmVal = 0;
+		} else {    // if PWM is not at min, write new value
+			analogWrite(PWM, pwmVal);
+		}
+	}
+	lastStateSlowBtn = currentBtnState;
+	return;
 }
 /* Get Register from Fuel Gauge */
 uint16_t Get_BatteryValue(uint8_t fuelregister)
@@ -133,35 +132,35 @@ uint16_t Get_BatteryValue(uint8_t fuelregister)
 
 uint16_t Get_BatteryRegister(uint8_t commandAddress)
 {
-Wire.beginTransmission(0xAA); // transmit to device #44 (0x2c) Send Start Address
-Wire.write(byte(commandAddress));            // sends instruction byte
-Wire.write(0xAB);             // sends potentiometer value byte
-uint8_t lsb = Wire.read();
-uint8_t msb = Wire.read();
-uint16_t combined = msb << 8 | lsb;
-Wire.endTransmission();     // stop transmitting
+	Wire.beginTransmission(0xAA); // transmit to device #44 (0x2c) Send Start Address
+	Wire.write(byte(commandAddress));            // sends instruction byte
+	Wire.write(0xAB);             // sends potentiometer value byte
+	uint8_t lsb = Wire.read();
+	uint8_t msb = Wire.read();
+	uint16_t combined = msb << 8 | lsb;
+	Wire.endTransmission();     // stop transmitting
 
-return combined;
+	return combined;
 }
 
 
 /******************** VOID MAIN **************************/
 void setup() 
 {
-  // initialize the digital pin as an output.
+	// initialize the digital pin as an output.
 
-    pinMode(LED1, OUTPUT);
-    pinMode(LED2, OUTPUT);
-    pinMode(LED3, OUTPUT);
-    pinMode(LED4, OUTPUT);
-    pinMode(LED5, OUTPUT);
-    pinMode(LED1_BUTTON, INPUT);
-    pinMode(LED2_BUTTON, INPUT);
-    digitalWrite(LED1, 0);
-    digitalWrite(LED2, 0);
-    digitalWrite(LED3, 0);
-    digitalWrite(LED4, 0);
-    digitalWrite(LED5, 0);
+	pinMode(LED1, OUTPUT);
+	pinMode(LED2, OUTPUT);
+	pinMode(LED3, OUTPUT);
+	pinMode(LED4, OUTPUT);
+	pinMode(LED5, OUTPUT);
+	pinMode(LED1_BUTTON, INPUT);
+	pinMode(LED2_BUTTON, INPUT);
+	digitalWrite(LED1, 0);
+	digitalWrite(LED2, 0);
+	digitalWrite(LED3, 0);
+	digitalWrite(LED4, 0);
+	digitalWrite(LED5, 0);
 
 
 	pinMode(SPEED_BUTTON, INPUT);
@@ -172,9 +171,9 @@ void setup()
 
 }
 void loop()
- {
-     buttonLedOnePressed();
-     buttonLedTwoPressed();
+{
+	buttonLedOnePressed();
+	buttonLedTwoPressed();
 	buttonSpeedUpPressed();
- }
+}
 
