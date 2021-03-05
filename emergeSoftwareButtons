@@ -5,6 +5,7 @@
 #define LED5 P2_5
 #define LED1_BUTTON P1_7
 #define LED2_BUTTON P1_3
+#define lol s
 
 /*********************************************
   Buttons to turn LED on/off
