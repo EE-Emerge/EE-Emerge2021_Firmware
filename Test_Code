@@ -1,15 +1,27 @@
 /*
-  This will make the red light blink and the fan turn on 
+  Blink
+  The basic Energia example.
+  Turns on an LED on for one second, then off for one second, repeatedly.
+  Change the LED define to blink other LEDs.
+  
   Hardware Required:
   * LaunchPad with an LED
   
   This example code is in the public domain.
 */
 #include <Wire.h> 
-// most launchpads have a red LED
-#define LED P1_3
+
+#define G_LED1 P1_3
+#define G_LED2 P1_4
+#define R_LED P1_1
+
 #define BUZZER P2_6
 #define CTL_FAN P1_0
+
+#define FAST_BUTTON P1_5
+#define SLOW_BUTTON P2_7
+#define BATTERY_BUTTON P2_3
+
 
 /************ GET BATTERY LOGIC **********/
 #define NOMINAL_CAPACITY 0x08
@@ -30,27 +42,46 @@
 #define STATE_OF_CHARGE_UNFILTERED 0x30 
 #define TRUE_REMAINING_CAPACITY 0x6A
 /************************** GLOBAL VAR START ********************/
+int speed = 0;
 
-//see pins_energia.h for more LED definitions
-//#define LED GREEN_LED
-  
 // the setup routine runs once when you press reset:
 void setup() {                
   // initialize the digital pin as an output.
-  pinMode(LED, OUTPUT);
+  pinMode(G_LED1, OUTPUT);
+  pinMode(G_LED2, OUTPUT);
+  pinMode(R_LED, OUTPUT);
   pinMode(BUZZER, OUTPUT);
   pinMode(CTL_FAN, OUTPUT);
+  
+  pinMode(FAST_BUTTON, INPUT);
+  pinMode(SLOW_BUTTON, INPUT);
+  pinMode(BATTERY_BUTTON, INPUT);
+  
+  attachInterrupt(FAST_BUTTON, speedUpInterrupt, RISING);
+  attachInterrupt(SLOW_BUTTON, slowDownInterrupt, RISING);
+  attachInterrupt(BATTERY_BUTTON, checkBattery, RISING);
+
 }
 
 // the loop routine runs over and over again forever:
 void loop() {
-  digitalWrite(LED, HIGH);   // turn the LED on (HIGH is the voltage level)
-  analogWrite(CTL_FAN, 255);
-  delay(1000);
+
+  if (FAST_BUTTON == 1){
+      digitalWrite(G_LED1, LOW);
+  }
+  if (FAST_BUTTON == 0){
+      digitalWrite(G_LED1, HIGH);
+  }
+  digitalWrite(G_LED2, LOW);
+  delay(500);
+  digitalWrite(G_LED2, HIGH);
+  delay(500);
+  
+ 
+  //Beep();
   // wait for a second
  // analogWrite(CTL_FAN, 0);
-  digitalWrite(LED, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);               // wait for a second
+//  digitalWrite(LED, LOW);    // turn the LED off by making the voltage LOW
 }
 
 /* Get Register from Fuel Gauge */
@@ -58,6 +89,7 @@ uint16_t Get_BatteryValue(uint8_t fuelregister)
 {
 	return Get_BatteryRegister(fuelregister);
 }
+
 void Beep(){
     analogWrite(BUZZER,500);
     delay(1000);
@@ -75,4 +107,32 @@ uint16_t Get_BatteryRegister(uint8_t commandAddress)
     Wire.endTransmission();     // stop transmitting
 
     return combined;
+}
+void speedUpInterrupt(){
+    Beep();
+    digitalWrite(G_LED1, 0);
+
+    if (speed > 255){
+        speed = 255;
+    } else {
+        speed = speed + 10;
+    }
+	analogWrite(BUZZER, speed);
+}	
+int state = 0;
+void slowDownInterrupt(){
+    Beep();
+    state = !state;
+    digitalWrite(P1_3, state);
+    if (speed < 0){
+        speed = 0;
+    } else {
+        speed = speed - 10;
+    }
+	analogWrite(BUZZER, speed);
+}
+void checkBattery(){
+    Beep();
+//	state = !state;
+//	digitalWrite(LED1, state);
 }
