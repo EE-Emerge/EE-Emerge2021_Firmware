@@ -62,7 +62,8 @@ void setup() {
   attachInterrupt(BATTERY_BUTTON, checkBattery, RISING);
 
 }
-
+int16_t prev_battery_level=Get_BatteryValue(REMAINING_CAPACITY);
+int permadisplay = 0;
 // the loop routine runs over and over again forever:
 void loop() {
 
@@ -76,6 +77,14 @@ void loop() {
   delay(500);
   digitalWrite(G_LED2, HIGH);
   delay(500);
+  if (Get_BatteryValue(REMAINING_CAPACITY) > prev_battery_level || permadisplay == 1;){
+  	if (Get_BatteryValue(REMAINING_CAPACITY) <= prev_battery_level){
+		permadisplay = 0;
+	} else if {
+  		displayBatteryLevel();
+		permadisplay = 1;
+  	}
+  }
   
  
   //Beep();
@@ -95,6 +104,10 @@ void Beep(){
     delay(1000);
     analogWrite(BUZZER, 0);
     delay(1000);
+}
+
+void display_battery_level(){
+/* imaginary helper function. DIsplays battery level */
 }
 uint16_t Get_BatteryRegister(uint8_t commandAddress)
 {
