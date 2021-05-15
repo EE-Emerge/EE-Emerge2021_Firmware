@@ -50,14 +50,13 @@
 
 									<h2>Flow Chart</h2>
 									<span class="image main"><img src="images/logic_flow_Chart.png" alt="" /></span>
-									<p>Once the device turns ON, it continuously polls the battery status button to check if it is pressed: if so, the battery level is displayed.  If the battery level is <span>&#60;</span>15%, the user is alerted through a vibration from a Piezo buzzer, flashing LEDs, and the fan speed being set to low.</p>
-									<p>On the left side, there are 2 buttons for controlling fan speed: UP and DOWN. Power is conserved by utilizing hardware interrupts. Rather than the program constantly checking if the increasing and decreasing speed buttons are pressed, a hardware interrupt executes an action (in this case, changing fan speed) only when requested by a button push.</p>
+									<p>A notable feature is the conservation of power by utilizing hardware interrupts. Rather than the program constantly checking if the increasing and decreasing speed buttons are pressed, a hardware interrupt executes an action (in this case, changing fan speed) only when requested by a button push.</p>
 
 									<hr class="major" />
 
 									<h2>LED Battery-Level System</h2>
 									<span class="image main"><img src="images/led_logic_new.png" alt="" /></span>
-									<p>After much consideration, it was determined that battery level would be displayed through 4 LEDs, as shown above.</p>
+									<p>After much consideration, it was determined that battery level would be displayed through 3 LEDs, as shown above.</p>
 									<p>The LEDs are coded to maximize information about the battery through 3 states: on, blinking, or off.  This allows for an intuitive display - the 8 states on the figure inform the user of a fairly accurate battery reading at a glance.</p>
 
 								<h2><a href="https://github.com/EE-Emerge/EE-Emerge2021_Firmware/blob/master/Timer_and_hardware_interrupt_test.cpp">Firmware code is available here</a>.</h2>	
