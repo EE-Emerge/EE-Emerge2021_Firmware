@@ -35,7 +35,7 @@
 /************************** GLOBAL VAR START ********************/
 
 int speed = 0;
-bool reached_15 = False; // checks if the battery has reached 15% yet (user is alerted at 15% battery)
+bool reached_15 = 0; // checks if the battery has reached 15% yet (user is alerted at 15% battery)
 int battery_charge = 0;
 Int new_battery_charge = 0;
 
@@ -84,7 +84,7 @@ void loop() {
   new_battery_charge = check_Battery();
   if (new_battery_charge > battery_charge) {
     /* Now Charging */
-    reached_15 = False;
+    reached_15 = 0;
   }  
   battery_charge = new_battery_charge;
   if (reached_15) {
@@ -159,7 +159,7 @@ void LED_Display(int GREEN, int GREEN2, int RED){
 int checkBattery(){
   int battery_level = Get_BatteryValue();
   if (battery_level <= 15) {
-    reached_15 = True;
+    reached_15 = 1;
   }
   return battery_level;
 }
